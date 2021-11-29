@@ -87,23 +87,23 @@ python test.py --config config文件 -checkpoint checkpoint文件 --gpu gpu编�
 
 ## 框架结构
 
-**config文件夹：**配置文件列表，设置各个模型对应的训练/测试/验证参数与模型参数
+**config文件夹：** 配置文件列表，设置各个模型对应的训练/测试/验证参数与模型参数
 
-**dataset文件夹：**数据集文件列表，从训练/验证/测试数据文件中读取数据，构建为dataset数据集
+**dataset文件夹：** 数据集文件列表，从训练/验证/测试数据文件中读取数据，构建为dataset数据集
 
-**evaluator文件夹：**模型的验证/测试过程
+**evaluator文件夹：** 模型的验证/测试过程
 
-**formatter文件夹：**构建dataloader之前的预处理过程，将dataset整理为每个训练batch
+**formatter文件夹：** 构建dataloader之前的预处理过程，将dataset整理为每个训练batch
 
-**init文件夹：**对dataset，evaluator, formatter，model，optimizer，lr_shceduler根据config文件进行初始化
+**init文件夹：** 对dataset，evaluator, formatter，model，optimizer，lr_shceduler根据config文件进行初始化
 
-**model文件夹：**模型实现过程
+**model文件夹：** 模型实现过程
 
-**optim_scheduler文件夹：**若不使用torch内置的optimizer，在这里自己定义对应的optimizer与lr_scheduler
+**optim_scheduler文件夹：** 若不使用torch内置的optimizer，在这里自己定义对应的optimizer与lr_scheduler
 
-**process文件夹：**初始化框架（加载checkpoint等）以及训练/验证/测试/的详细过程
+**process文件夹：** 初始化框架（加载checkpoint等）以及训练/验证/测试/的详细过程
 
-**utils文件夹：**一些工具代码，例如cos相似度，随机种子，logging信息格式等
+**utils文件夹：** 一些工具代码，例如cos相似度，随机种子，logging信息格式等
 
 ## 配置文件
 
@@ -113,27 +113,27 @@ python test.py --config config文件 -checkpoint checkpoint文件 --gpu gpu编�
 
 <u>*Stage 2*：</u>
 
-*Our Method on MiniLM：*Distill/minilm_bottle_distill.config
+*Our Method on MiniLM：* Distill/minilm_bottle_distill.config
 
-*Our Method on XLM-R：*Distill/xlmr_bottle_distill.config
+*Our Method on XLM-R：* Distill/xlmr_bottle_distill.config
 
 <u>*Stage 3：*</u>
 
-*Our Method on MiniLM：*Distill/minilm_rec_bottle_distill.config，Distill/minilm_rec_distill.config
+*Our Method on MiniLM：* Distill/minilm_rec_bottle_distill.config，Distill/minilm_rec_distill.config
 
-*Our Method on XLM-R：*Distill/xlmr_rec_bottle_distill.config，Distill/xlmr_rec_distill.config
+*Our Method on XLM-R：* Distill/xlmr_rec_bottle_distill.config，Distill/xlmr_rec_distill.config
 
 <u>Stage 4：</u>
 
-*[Reimerts Method](https://arxiv.org/abs/2004.09813)：*multilingual/mse.config
+*[Reimerts Method](https://arxiv.org/abs/2004.09813)：* multilingual/mse.config
 
-*Our Method on MiniLM：*multilingual/minilm_rec_bottle_mcl.config，multilingual/minilm_rec_mcl.config		
+*Our Method on MiniLM：* multilingual/minilm_rec_bottle_mcl.config，multilingual/minilm_rec_mcl.config		
 
-*Our Method on XLM-R：*multilingual/xlmr_rec_bottle_mcl.config，multilingual/xlmr_rec_mcl.config
+*Our Method on XLM-R：* multilingual/xlmr_rec_bottle_mcl.config，multilingual/xlmr_rec_mcl.config
 
-*消融实验：*multilingual/ablation_wo_all.config，multilingual/ablation_wo_recursive.config，multilingual/xlmr_rec_bottle_mse.config
+*消融实验：* multilingual/ablation_wo_all.config，multilingual/ablation_wo_recursive.config，multilingual/xlmr_rec_bottle_mse.config
 
-*对比其他cl方式：*multilingual/xlmr_rec_bottle_ce.config，multilingual/xlmr_rec_bottle_bool.config
+*对比其他cl方式：* multilingual/xlmr_rec_bottle_ce.config，multilingual/xlmr_rec_bottle_bool.config
 
 ## 模型列表
 
