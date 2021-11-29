@@ -154,7 +154,7 @@ python test.py --config config文件 -checkpoint checkpoint文件 --gpu gpu编�
 
 ## 运行环境
 
-请参考``requirements.txt``。（尚未完成）
+请参考``requirements.txt``。
 
 ## 致谢
 
