@@ -1,0 +1,12 @@
+
+*.xml
+config/.DS_Store
+dataset/.DS_Store
+evaluator/.DS_Store
+formatter/.DS_Store
+model/.DS_Store
+optim_scheduler/.DS_Store
+sentence_transformers/.DS_Store
+sentence_transformers/cross_encoder/.DS_Store
+sentence_transformers/models/.DS_Store
+utils/.DS_Store
