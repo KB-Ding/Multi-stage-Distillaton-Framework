@@ -44,14 +44,14 @@ if __name__ == "__main__":
         logx.msg(infor_msg(section))
         logx.msg(infor_msg(config.items(section)))
 
-    # 检查 CUDA
+    # check CUDA
     cuda = torch.cuda.is_available()
     logx.msg(infor_msg("CUDA available: %s" % str(cuda)))
     if not cuda and gpu_mode > 0:
         logx.msg(erro_msg("CUDA is not available but specific gpu id"))
         raise NotImplementedError
 
-    # 初始化
+    # init
     parameters = init_all(config, gpu_mode, args.checkpoint, "test")
 
     model = parameters["model"]

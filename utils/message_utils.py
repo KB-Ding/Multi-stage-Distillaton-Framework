@@ -1,6 +1,5 @@
 def gen_time_str(t):
     """
-    转化为 '分钟 : 秒' 的格式
     :param t:    timer
     :return:    '%2d:%02d'
     """

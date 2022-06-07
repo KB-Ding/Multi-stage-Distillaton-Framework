@@ -77,7 +77,7 @@ def train_process(parameters, config, gpu_mode, do_test):
     output_time = config.getint("output", "output_time")
 
     # parameters
-    trained_epoch = parameters["trained_epoch"] + 1  # 初始化为 1
+    trained_epoch = parameters["trained_epoch"] + 1  # initialized to 1
     model = parameters["model"]
     optimizer = parameters["optimizer"]
     global_step = parameters["global_step"]
@@ -85,7 +85,7 @@ def train_process(parameters, config, gpu_mode, do_test):
     test_evaluator = parameters["test_evaluator"]
     output_path = parameters["output_path"]
 
-    # optimizer 参数
+    # optimizer parameter
     exp_lr_scheduler = init_lr_scheduler(optimizer, config, config.getint("train", "epoch") * len(dataset), model=model)
 
     logx.msg(infor_msg("==============Training start....=============="))
@@ -151,8 +151,10 @@ def train_process(parameters, config, gpu_mode, do_test):
                                                    valid_evaluator,
                                                    output_path, 'validate')
                         model.train()
-                    # 每个epoch存一次 tensorboard 和 checkpoint,
-                    # logx.metric-->tensorboard，不存入metrics.csv，csv文件只存validate/test阶段的指标结果
+                    # each epoch -- > save tensorboard & checkpoint,
+                    # logx.metric --> tensorboard，not --> metrics.csv
+                    # metrics.csv only saves the metrics of validate/test stage
+                    
                     checkpoint(model, optimizer, current_epoch, config, global_step, score)
                     logx.metric('val', {'loss': float(loss_value.item()),
                                           'score': score}, current_epoch)

@@ -23,7 +23,7 @@ def STS_evaluator(config, mode):
     # Open the ZIP File of STS2017-extended.zip and check for which language combinations we have STS data
     with zipfile.ZipFile(sts_corpus) as zip:
         filelist = zip.namelist()
-        # 添加绝对路径，与filepath保持一致
+        # absolute path, consistent with the 'filepath'
         filelist = [os.path.join(data_dir_cache_folder, l) for l in filelist]
         for i in range(len(all_languages)):
             for j in range(i, len(all_languages)):

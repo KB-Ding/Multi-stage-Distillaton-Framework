@@ -10,41 +10,37 @@ The PyTorch implementation for our paper:
 
 Parallel sentences corpus: you can get *TED2020* from [here](https://public.ukp.informatik.tu-darmstadt.de/reimers/sentence-transformers/datasets/ted2020.tsv.gz) and other datasets from [OPUS](https://opus.nlpl.eu/) .
 
-Test dsatasets: *STS2017* and *STS2017-extend* can be obtained from [here](https://public.ukp.informatik.tu-darmstadt.de/reimers/sentence-transformers/datasets/STS2017-extended.zip).
+Test datasets: *STS2017* and *STS2017-extend* can be obtained from [here](https://public.ukp.informatik.tu-darmstadt.de/reimers/sentence-transformers/datasets/STS2017-extended.zip).
 
 #### Train
 
-- Single-GPU
+- ***Single-GPU***
 
 ```bash
 python train.py --config [config] -checkpoint [checkpoint] --gpu [gpu number] --do_test --logdir [log folder]
 ```
 
-``--config``: config file directory, ``--checkpoint``: checkpoint file directory, ``--gpu``: gpu number , ``--do_test``: Whether to test after training, ``--logdir``：The file directory where logs and checkpoints are saved
+``[config]`` 		  --->  Directory for the configuration file.			 ``[checkpoint]``	--->  Resume training from the [checkpoint] file.
 
-- Multi-GPU
+ ``[gpu]``				--->  The GPU index.											       ``--do_test``  	 --->  Whether to do test after training.
+
+`[log folder]`   --->  The file directory where training logs and checkpoints are saved.
+
+- ***Multi-GPU***
 
 ```bash
-CUDA_VISIBLE_DEVICES = gpu列表 python -m torch.distributed.launch --nproc_per_node = gpu数量 --master_port 指定端口号 train.py --config config文件 --checkpoint checkpoint文件 --distributed --do_test --logdir 训练文件夹
+CUDA_VISIBLE_DEVICES = [gpu list] python -m torch.distributed.launch --nproc_per_node = [number] --master_port [port] train.py --config [config] --checkpoint [checkpoint] --distributed --do_test --logdir [log folder]
 ```
 
-``--CUDA_VISIBLE_DEVICES``：必要参数，给定gpu列表
+``[gpu list]``：list of GPUs used
 
-``--nproc_per_node``：必要参数，给定每个节点启动进程数量，通常与训练使用的gpu数量一致
+``[number]``：The number of processes started on each node, usually equal to the number of GPUs used.
 
-``--master_port``：必要参数，给定主节点的端口号
+``[port]``：The port number of the master node
 
-``--config``：必要参数，给定模型配置文件位置
+``--distributed``：Specify to use torch.distributed for initialization
 
-``--checkpoint``：可选参数，给定保存的checkpoint文件位置
-
-``--distributed``：必要参数，指定使用torch.distributed进行初始化
-
-``--do_test``：可选参数，若希望训练后在测试集上进行测试，则给定本参数，否则省略
-
-``--logdir``：可选参数，训练日志以及checkpoint存储位置
-
-* An example：
+* *An example*：
 
 ```shell
 CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 python3 -m torch.distributed.launch \
@@ -53,10 +49,10 @@ CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 python3 -m torch.distributed.launch \
 --config /xxx/config/multilingual/xlmr_rec_bottle_mcl.config \
 --do_test \
 --distributed \
---logdir /xxx/mul_output_train
+--logdir /xxx/output_train
 ```
 
-**Evaluate**
+- ***Evaluate***
 
 ```bash
 python test.py --config config文件 -checkpoint checkpoint文件 --gpu gpu编号 --logdir 测试文件夹
@@ -90,25 +86,25 @@ python test.py --config config文件 -checkpoint checkpoint文件 --gpu gpu编�
 
 **utils文件夹：** 一些工具代码，例如cos相似度，随机种子，logging信息格式等
 
-## Model Config
+## Configuration
 
-<u>*Stage 1*：</u>
+- <u> Stage 1:</u>
 
-You can get well-trained models from [here](https://github.com/UKPLab/sentence-transformers) or write your own script based on multilingual/mse.config.
+You can get well-trained models from [here](https://www.sbert.net/) or write your own script based on multilingual/mse.config.
 
-<u>*Stage 2*：</u>
+- <u> Stage 2:</u>
 
 *Our Method on MiniLM：* Distill/minilm_bottle_distill.config
 
 *Our Method on XLM-R：* Distill/xlmr_bottle_distill.config
 
-<u>*Stage 3：*</u>
+- <u>Stage 3:</u>
 
 *Our Method on MiniLM：* Distill/minilm_rec_bottle_distill.config，Distill/minilm_rec_distill.config
 
 *Our Method on XLM-R：* Distill/xlmr_rec_bottle_distill.config，Distill/xlmr_rec_distill.config
 
-<u>*Stage 4：*</u>
+- <u>Stage 4:</u>
 
 *Our Method on MiniLM：* multilingual/minilm_rec_bottle_mcl.config，multilingual/minilm_rec_mcl.config	
 
@@ -116,14 +112,13 @@ You can get well-trained models from [here](https://github.com/UKPLab/sentence-t
 
 
 
-We provide the model config list in: /init/init_model.py:
+We provide the model configuration list in: /init/init_model.py:
 
 ```python
 # stage 1
 "mul_mse": mse, # Multilingual KD.
 # stage 2
-"bottle_distill": bottle_distill, # If use bottleneck,
-  																# Align the bottleneck embedding layer with the PLM.
+"bottle_distill": bottle_distill, # If use bottleneck, align the bottleneck embedding layer with the assistant model.
 # stage 3
 "rec_distill": rec_distill,# Using parameter recurrent only.
 "rec_bottle_distill": rec_bottle_distill, # Using parameter recurrent and bottleneck layer.
@@ -136,13 +131,13 @@ We provide the model config list in: /init/init_model.py:
 
 Python 3.6
 
-pytorch 1.7.1
+PyTorch 1.7.1
 
 transformers 4.6.0
 
-For other packages, please refer to requirements.txt
+For other packages, please refer to the requirements.txt.
 
-## Model zoo
+## Model Zoo
 
 Coming soon
 
@@ -150,7 +145,7 @@ Coming soon
 
 Thanks to [sentence-transformers](https://github.com/UKPLab/sentence-transformers), [huggingface-transformers](https://github.com/huggingface/transformers), [pytorch-worker](https://github.com/haoxizhong/pytorch-worker), and [UER](https://github.com/dbiir/UER-py) for their open source code.
 
-This work is supported by Peking University and Tencent Inc. If you use our code, please cite this paper:
+This work is supported by Peking University and Tencent Inc. If you use the code, please cite this paper:
 
 ```latex
 @inproceedings{kunbo2022multistage,
@@ -160,4 +155,3 @@ This work is supported by Peking University and Tencent Inc. If you use our code
   year={2022}
 }
 ```
-
