@@ -8,7 +8,10 @@ from model.multilingual.rec_bottle_mcl import rec_bottle_mcl
 
 from model.multilingual.rec_mcl import rec_mcl
 from model.multilingual.mse import mse
-
+from model.single.align_bottle_mse import align_bottle_mse
+from model.single.origin_single_bottle_mse import origin_single_bottle_mse
+from model.single.pre_distilled import pre_distilled
+from model.single.single_bottle_mse import single_bottle_mse
 
 model_list = {
     # multilingual kd
@@ -23,7 +26,12 @@ model_list = {
     "rec_bottle_bool": rec_bottle_bool,
     "rec_bottle_ce": rec_bottle_ce,
     "rec_bottle_mcl": rec_bottle_mcl,
-    "rec_mcl": rec_mcl
+    "rec_mcl": rec_mcl,
+    # singal
+    "single_bottle_mse": single_bottle_mse,
+    "origin_single_bottle_mse": origin_single_bottle_mse,
+    "align_bottle_mse": align_bottle_mse,
+    "pre_distilled": pre_distilled
 }
 
 def get_model(model_name):

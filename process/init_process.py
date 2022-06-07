@@ -1,50 +1,17 @@
-"""''''''''''''''''''''''''''''''''''''''
-'           # 初始化模型与数据集 #
-'
-'
-'
-'
-'
-'
-''''''''''''''''''''''''''''''''''''''"""
-
 import torch
 
 from formatter.router import route_formatter
 from init.init_evalutor import init_evaluator
 from init.init_model import get_model
-# from optim.optimizer.optimizer import init_optimizer
 from init.init_optimizer import init_optimizer
-# from init.init_report import init_report_function
 from runx.logx import logx
 from utils.message_utils import warning_msg, infor_msg, erro_msg, correct_msg
 
+
 def init_all(config, gpu_mode, checkpoint, mode, *args, **params):
-    """
-    :param config:
-    :param gpu_list:
-    :param checkpoint:
-    :param mode:
-    :param args:
-    :param params:
-
-    :return:
-    [train mode]:
-        result["train_dataset"]
-        result["valid_dataset"]
-        result["model"]
-        result["optimizer"]
-        result["trained_epoch"]
-        result["output_function"]
-        result["global_step"]
-
-    [test mode]:
-        result["model"]
-        result["test_dataset"]
-    """
     result = {}
     '''
-    step1. 加载模型，根据gpu情况初始化
+    step1. model
     '''
     logx.msg(infor_msg('Begin to initialize models...'))
     model = get_model(config.get("model", "model_name"))(config, *args, **params)
@@ -73,7 +40,7 @@ def init_all(config, gpu_mode, checkpoint, mode, *args, **params):
         logx.msg(correct_msg('Train mode: cpu'))
 
     '''
-    step2. 加载checkpoints，若有指定，分别加载存储的model，trained_epoch，若为训练模式，继续加载optimizer，global_step
+    step2. checkpoints
     '''
     logx.msg(infor_msg("Loading checkpoint..."))
     try:
@@ -104,7 +71,7 @@ def init_all(config, gpu_mode, checkpoint, mode, *args, **params):
             logx.msg(warning_msg(f'{information}'))
 
     '''
-    step3. 初始化train，valid，test对应的formatter，方便后续get_formatter
+    step3. formatter
     '''
     logx.msg(infor_msg("Use router to initialize formatter..."))
     if mode == "train":
@@ -112,7 +79,6 @@ def init_all(config, gpu_mode, checkpoint, mode, *args, **params):
     else:
         logx.msg(infor_msg("test mode, pass formatter..."))
         pass
-
 
     result["model"] = model
     result["trained_epoch"] = trained_epoch

@@ -1,10 +1,6 @@
 import argparse
 import os
 import torch
-# --config /apdcephfs/share_1157269/karlding/mul_sentence_transformers/config/distillation/albert_mse.config
-# --gpu 0
-# --checkpoint /apdcephfs/share_1157269/karlding/mul_output_train/logs_train/distillation_layers_mse
-# /2021_09_29__20_55_17/last_checkpoint_ep5.pth
 
 from utils.message_utils import infor_msg, erro_msg, warning_msg
 

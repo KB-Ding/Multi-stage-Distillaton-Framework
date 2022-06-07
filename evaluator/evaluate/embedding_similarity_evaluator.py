@@ -53,14 +53,6 @@ class embedding_similarity_evaluator(basic_evaluator):
 
 
     def __call__(self, model, output_path: str = None, epoch: int = -1, steps: int = -1, bistream = False) -> float:
-        # if epoch != -1:
-        #     if steps == -1:
-        #         out_txt = " after epoch {}:".format(epoch)
-        #     else:
-        #         out_txt = " in epoch {} after {} steps:".format(epoch, steps)
-        # else:
-        #     out_txt = ":"
-        # logx.msg(infor_msg("EmbeddingSimilarityEvaluator: Evaluating the model on " + self.name + " dataset" + out_txt))
 
         if not bistream:
             embeddings1 = model.encode(self.sentences1, batch_size=self.batch_size, show_progress_bar=self.show_progress_bar, convert_to_numpy=True)
@@ -90,22 +82,6 @@ class embedding_similarity_evaluator(basic_evaluator):
 
         eval_pearson_dot, _ = pearsonr(labels, dot_products)
         eval_spearman_dot, _ = spearmanr(labels, dot_products)
-
-        # logx.msg(infor_msg("Cosine-Similarity :\tPearson: {:.4f}\tSpearman: {:.4f}".format(
-        #     eval_pearson_cosine, eval_spearman_cosine))
-        # )
-        #
-        # logx.msg(infor_msg("Manhattan-Distance:\tPearson: {:.4f}\tSpearman: {:.4f}".format(
-        #     eval_pearson_manhattan, eval_spearman_manhattan))
-        # )
-        #
-        # logx.msg(infor_msg("Euclidean-Distance:\tPearson: {:.4f}\tSpearman: {:.4f}".format(
-        #     eval_pearson_euclidean, eval_spearman_euclidean))
-        # )
-        #
-        # logx.msg(infor_msg("Dot-Product-Similarity:\tPearson: {:.4f}\tSpearman: {:.4f}".format(
-        #     eval_pearson_dot, eval_spearman_dot))
-        # )
 
 
         if output_path is not None and self.write_csv:

@@ -56,23 +56,23 @@ class parallel_all_distill_dataset(Dataset):
                                             'devCount': 0
                                             })
 
-        # add wikimatrix
-        for source_lang in source_languages:
-            for target_lang in target_languages:
-                wikifile = os.path.join(parallel_sentences_folder, "WikiMatrix-{}-{}-train.tsv.gz".format(source_lang, target_lang))
-                train_files.append(wikifile)
-
-        # add News-Commentary
-        for source_lang in source_languages:
-            for target_lang in target_languages:
-                News = os.path.join(parallel_sentences_folder, "News-Commentary-{}-{}.tsv.gz".format(source_lang, target_lang))
-                train_files.append(News)
-
-        # add Europarl
-        for source_lang in source_languages:
-            for target_lang in target_languages:
-                Europarl = os.path.join(parallel_sentences_folder, "Europarl-{}-{}.tsv.gz".format(source_lang, target_lang))
-                train_files.append(Europarl)
+        # # add wikimatrix
+        # for source_lang in source_languages:
+        #     for target_lang in target_languages:
+        #         wikifile = os.path.join(parallel_sentences_folder, "WikiMatrix-{}-{}-train.tsv.gz".format(source_lang, target_lang))
+        #         train_files.append(wikifile)
+        #
+        # # add News-Commentary
+        # for source_lang in source_languages:
+        #     for target_lang in target_languages:
+        #         News = os.path.join(parallel_sentences_folder, "News-Commentary-{}-{}.tsv.gz".format(source_lang, target_lang))
+        #         train_files.append(News)
+        #
+        # # add Europarl
+        # for source_lang in source_languages:
+        #     for target_lang in target_languages:
+        #         Europarl = os.path.join(parallel_sentences_folder, "Europarl-{}-{}.tsv.gz".format(source_lang, target_lang))
+        #         train_files.append(Europarl)
 
 
         max_sentences_per_language = 300000  # Maximum number of  parallel sentences for training

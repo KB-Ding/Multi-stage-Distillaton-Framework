@@ -20,21 +20,12 @@ class mse_evaluator(basic_evaluator):
         self.write_csv = write_csv
 
     def __call__(self, model, output_path, epoch  = -1, steps = -1):
-        # if epoch != -1:
-        #     if steps == -1:
-        #         out_txt = " after epoch {}:".format(epoch)
-        #     else:
-        #         out_txt = " in epoch {} after {} steps:".format(epoch, steps)
-        # else:
-        #     out_txt = ":"
+
 
         target_embeddings = model.encode(self.target_sentences, show_progress_bar=self.show_progress_bar, batch_size=self.batch_size, convert_to_numpy=True)
 
         mse = ((self.source_embeddings - target_embeddings)**2).mean()
         mse *= 100
-
-        # logx.msg(report_msg("MSE evaluation (lower = better) on "+self.name+" dataset"+out_txt))
-        # logx.msg(report_msg("MSE (*100):\t{:4f}".format(mse)))
 
         if output_path is not None and self.write_csv:
             csv_path = os.path.join(output_path, self.csv_file)

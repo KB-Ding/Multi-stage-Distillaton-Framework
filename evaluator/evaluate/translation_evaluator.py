@@ -29,14 +29,6 @@ class translation_evaluator(basic_evaluator):
         self.write_csv = write_csv
 
     def __call__(self, model, output_path: str = None, epoch: int = -1, steps: int = -1) -> float:
-        # if epoch != -1:
-        #     if steps == -1:
-        #         out_txt = " after epoch {}:".format(epoch)
-        #     else:
-        #         out_txt = " in epoch {} after {} steps:".format(epoch, steps)
-        # else:
-        #     out_txt = ":"
-        # logx.msg(infor_msg("Evaluating translation matching Accuracy on "+self.name+" dataset"+out_txt))
 
         embeddings1 = torch.stack(model.encode(self.source_sentences, show_progress_bar=self.show_progress_bar, batch_size=self.batch_size, convert_to_numpy=False))
         embeddings2 = torch.stack(model.encode(self.target_sentences, show_progress_bar=self.show_progress_bar, batch_size=self.batch_size, convert_to_numpy=False))
@@ -72,10 +64,6 @@ class translation_evaluator(basic_evaluator):
 
         acc_src2trg = correct_src2trg / len(cos_sims)
         acc_trg2src = correct_trg2src / len(cos_sims)
-
-        # logx.msg(report_msg("Accuracy src2trg: {:.2f}".format(acc_src2trg*100)))
-        # logx.msg(report_msg("Accuracy trg2src: {:.2f}".format(acc_trg2src*100)))
-
 
         if output_path is not None and self.write_csv:
             csv_path = os.path.join(output_path, self.csv_file)

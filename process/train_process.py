@@ -1,11 +1,3 @@
-"""''''''''''''''''''''''''''''''''''''''
-'           # 模型训练与记录 #
-'
-'  训练模型，每个epoch储存checkpoint并在验证集进行验证
-'  每'config.getint("output", "output_time")'个batch，输出loss信息
-'
-''''''''''''''''''''''''''''''''''''''"""
-
 from runx.logx import logx
 import torch
 from torch.autograd import Variable
@@ -16,21 +8,12 @@ from torch.utils.data import DataLoader
 from init.init_lr_scheduler import init_lr_scheduler
 from utils.message_utils import gen_time_str, warning_msg, infor_msg, erro_msg, epoch_msg, correct_msg
 from init.init_dataset import dataset_list
-from formatter.router import route_formatter
 from formatter.router import get_formatter
 from process.test_process import test_process
 
 
 def checkpoint(model, optimizer, trained_epoch, config, global_step, metric):
-    """
-    储存checkpoint文件
-    :param model:           model
-    :param optimizer:       optimizer
-    :param trained_epoch:   本次训练的epoch数，从1开始计数
-    :param config:          config
-    :param global_step:     全局训练轮次， 从0开始计数
 
-    """
     if logx.rank0:
         model_to_save = model.module if hasattr(model, 'module') else model
         save_params = {
@@ -55,9 +38,6 @@ def checkpoint(model, optimizer, trained_epoch, config, global_step, metric):
 
 
 def train_process(parameters, config, gpu_mode, do_test):
-    """
-    模型的详细训练过程
-    """
 
     which_train = config.get("data", "train_dataset_type")
     train_data = dataset_list[which_train](config, "train")
@@ -96,7 +76,7 @@ def train_process(parameters, config, gpu_mode, do_test):
     epoch = config.getint("train", "epoch") + 1
     output_time = config.getint("output", "output_time")
 
-    # 训练参数
+    # parameters
     trained_epoch = parameters["trained_epoch"] + 1  # 初始化为 1
     model = parameters["model"]
     optimizer = parameters["optimizer"]
@@ -113,9 +93,9 @@ def train_process(parameters, config, gpu_mode, do_test):
     total_len = len(dataset)
     model.train()
 
-    # 开始训练，epoch范围：[trained_epoch, config.train.epoch + 1)
+    # train start, epoch：[trained_epoch, config.train.epoch + 1)
     for epoch_num in range(trained_epoch, epoch):
-        # #############一个epoch开始#############
+        # ############# epoch start #############
         start_time = timer()
         current_epoch = epoch_num
         if 2 == gpu_mode:
@@ -126,9 +106,9 @@ def train_process(parameters, config, gpu_mode, do_test):
         step = -1
 
         for step, data in enumerate(dataset):
-            # ############# 一个step开始 #############
+            # ############# step start #############
             for key in data.keys():
-                # 将经过Formatter处理后的tensor变量封装为Variable
+                # Formatter-->tensor-->Variable
                 if isinstance(data[key], torch.Tensor):
                     if gpu_mode > 0:
                         data[key] = Variable(data[key].cuda(non_blocking=True))
@@ -172,18 +152,18 @@ def train_process(parameters, config, gpu_mode, do_test):
                                                    output_path, 'validate')
                         model.train()
                     # 每个epoch存一次 tensorboard 和 checkpoint,
-                    # 这里的logx.metric只存tensorboard，不存入metrics.csv，csv文件只存validate/test阶段的指标结果
+                    # logx.metric-->tensorboard，不存入metrics.csv，csv文件只存validate/test阶段的指标结果
                     checkpoint(model, optimizer, current_epoch, config, global_step, score)
                     logx.metric('val', {'loss': float(loss_value.item()),
                                           'score': score}, current_epoch)
 
             global_step += 1
 
-            # ############# 一个step结束 #############
+            # ############# step end #############
         if 'epoch' == config.get("optim", "update_scheduler") and exp_lr_scheduler is not None:
             exp_lr_scheduler.step()
 
-        # 最后一个step的输出
+        # last step
         delta_t = timer() - start_time
         logx.msg(epoch_msg(Epoch=current_epoch,
                            Stage='train',
@@ -199,16 +179,15 @@ def train_process(parameters, config, gpu_mode, do_test):
                                      valid_evaluator,
                                      output_path, 'validate')
                 model.train()
-            # 每个epoch存一次 tensorboard 和 checkpoint,
-            # 这里的logx.metric只存tensorboard，不存入metrics.csv，csv文件只存validate/test阶段的指标结果
+
             checkpoint(model, optimizer, current_epoch, config, global_step, score)
 
         if step == -1:
             logx.msg(erro_msg("There is no data given to the model in this epoch, check your data."))
             raise NotImplementedError
-        # #############一个epoch结束#############
+        # #############epoch end#############
 
-    # 所有epoch结束
+    # end
     with torch.no_grad():
         if do_test and logx.rank0:
             test_process(model, -1, config, -1,

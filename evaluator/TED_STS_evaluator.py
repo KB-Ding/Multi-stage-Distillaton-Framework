@@ -59,23 +59,22 @@ def TED_STS_evaluator(config, mode):
                                           teacher_model=teacher_model, batch_size=config.getint(mode, "batch_size"))
         evaluators.append(dev_mse)
 
-        # translation_evaluator computes the embeddings for all parallel sentences. It then check if the embedding of source[i] is the closest to target[i] out of all available target sentences
+
         dev_trans_acc = translation_evaluator(src_sentences, trg_sentences, name=os.path.basename(dev_file),
                                               batch_size=config.getint(mode, "batch_size"))
         evaluators.append(dev_trans_acc)
 
 
-    #########
+
     import zipfile
     import io
     data_dir_cache_folder = config.get("data", "data_dir")
     sts_data = {}
     all_languages = list(set(list(source_languages) + list(target_languages)))
     sts_corpus = os.path.join(config.get("data", "data_dir"), 'STS2017-extended.zip')
-    # Open the ZIP File of STS2017-extended.zip and check for which language combinations we have STS data
+
     with zipfile.ZipFile(sts_corpus) as zip:
         filelist = zip.namelist()
-        # 添加绝对路径，与filepath保持一致
         filelist = [os.path.join(data_dir_cache_folder, l) for l in filelist]
         for i in range(len(all_languages)):
             for j in range(i, len(all_languages)):

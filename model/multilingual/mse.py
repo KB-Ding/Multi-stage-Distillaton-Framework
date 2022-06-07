@@ -1,9 +1,6 @@
-# from torch import nn, Tensor
 import os
 
 from typing import List, Dict, Tuple, Union
-# from model.sentence_transformers import models
-# from model.sentence_transformers.SentenceTransformer import SentenceTransformer
 from utils.cos import cos_sim
 from numpy import ndarray
 from torch import nn, Tensor
@@ -15,16 +12,16 @@ class mse(nn.Module):
     def __init__(self, config, *args, **params):
 
         super(mse, self).__init__()
-        # ver 1
-        # hugging_dir = os.path.join(config.get("model", "student_model_path"))
-        # self.model = SentenceTransformer(hugging_dir)
-        # ver2
+        # ver 1 Sbert
         hugging_dir = os.path.join(config.get("model", "student_model_path"))
-        word_embedding_model = models.Transformer(hugging_dir, max_seq_length=config.getint("data", "max_seq_length"),
-                                                  cache_dir=hugging_dir)  # !!!!!!
-        # Apply mean pooling to get one fixed sized sentence vector
-        pooling_model = models.Pooling(word_embedding_model.get_word_embedding_dimension())
-        self.model = SentenceTransformer(modules=[word_embedding_model, pooling_model])
+        self.model = SentenceTransformer(hugging_dir)
+        # ver2 hugging face
+        # hugging_dir = os.path.join(config.get("model", "student_model_path"))
+        # word_embedding_model = models.Transformer(hugging_dir, max_seq_length=config.getint("data", "max_seq_length"),
+        #                                           cache_dir=hugging_dir)
+        # # Apply mean pooling to get one fixed sized sentence vector
+        # pooling_model = models.Pooling(word_embedding_model.get_word_embedding_dimension())
+        # self.model = SentenceTransformer(modules=[word_embedding_model, pooling_model])
 
         self.config = config
 
@@ -33,20 +30,9 @@ class mse(nn.Module):
         self.mul_loss_fct = nn.MSELoss()
 
     def forward(self, data):
-        # sentence_features = data["sentence_features"]
-        # labels = data["labels"]
-
-        # reps = [self.model(sentence_feature)['sentence_embedding'] for sentence_feature in sentence_features]
 
         embeddings_a = self.model({'input_ids': data["en_input_ids"], 'attention_mask': data["en_attention_mask"]})['sentence_embedding']
         embeddings_b = self.model({'input_ids': data["mul_input_ids"], 'attention_mask': data["mul_attention_mask"]})['sentence_embedding']
-
-        # en_tokenized = self.model.tokenize(data['en_text'])
-        # mul_tokenized = self.model.tokenize(data['mul_text'])
-
-        # embeddings_a = self.model(en_tokenized)['sentence_embedding']
-        # embeddings_b = self.model(mul_tokenized)['sentence_embedding']
-
         teacher_embedding = data["labels"]
 
         en_loss = self.en_loss_fct(embeddings_a, teacher_embedding)
