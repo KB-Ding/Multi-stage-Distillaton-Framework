@@ -20,11 +20,15 @@ Test datasets: *STS2017* and *STS2017-extend* can be obtained from [here](https:
 python train.py --config [config] -checkpoint [checkpoint] --gpu [gpu number] --do_test --logdir [log folder]
 ```
 
-``[config]`` 		  --->  Directory for the configuration file.			 ``[checkpoint]``	--->  Resume training from the [checkpoint] file.
+``[config]`` : Directory for the configuration file.
 
- ``[gpu]``				--->  The GPU index.											       ``--do_test``  	 --->  Whether to do test after training.
+``[checkpoint]``: Resume training from the [checkpoint] file.
 
-`[log folder]`   --->  The file directory where training logs and checkpoints are saved.
+ ``[gpu]``: The GPU index.											      
+
+ ``--do_test`` : Whether to do test after training.
+
+`[log folder]`: The file directory where training logs and checkpoints are saved.
 
 - ***Multi-GPU***
 
@@ -55,36 +59,47 @@ CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 python3 -m torch.distributed.launch \
 - ***Evaluate***
 
 ```bash
-python test.py --config config文件 -checkpoint checkpoint文件 --gpu gpu编号 --logdir 测试文件夹
+python test.py --config [config] -checkpoint [checkpoint] --gpu [gpu] --logdir [log folder]
 ```
 
-``--config``：必要参数，给定模型配置文件位置
+## Directory structure
 
-``--checkpoint``：可选参数，给定保存的checkpoint文件位置
-
-``--gpu``：必要参数，给定想运行的gpu编号
-
-``--logdir``：可选参数，测试日志以及结果存储位置
-
-## 框架结构
-
-**config文件夹：** 配置文件列表，设置各个模型对应的训练/测试/验证参数与模型参数
-
-**dataset文件夹：** 数据集文件列表，从训练/验证/测试数据文件中读取数据，构建为dataset数据集
-
-**evaluator文件夹：** 模型的验证/测试过程
-
-**formatter文件夹：** 构建dataloader之前的预处理过程，将dataset整理为每个训练batch
-
-**init文件夹：** 对dataset，evaluator, formatter，model，optimizer，lr_shceduler根据config文件进行初始化
-
-**model文件夹：** 模型实现过程
-
-**optim_scheduler文件夹：** 若不使用torch内置的optimizer，在这里自己定义对应的optimizer与lr_scheduler
-
-**process文件夹：** 初始化框架（加载checkpoint等）以及训练/验证/测试/的详细过程
-
-**utils文件夹：** 一些工具代码，例如cos相似度，随机种子，logging信息格式等
+```python
+├── config # Configuration: Set hyperparameters.
+│   ├── default.config
+│   ├── ...
+├── dataset # Dataset preprocessing: Read data and build the dataset
+│   ├── parallel_all_distill_dataset.py
+│   ├── ...
+├── evaluator # Evaluator for test/validation sets
+│   ├── STS_evaluator.py
+│   ├── ...
+├── formatter # Format the dataloader: Build each training batch
+│   ├── __init__.py
+│   ├── basic_formatter.py
+│   ├── ...
+├── init # Initialize according to the config file
+│   ├── __init__.py
+│   ├── init_dataset.py
+│   ├── ...
+├── model # Implementation of the models
+│   ├── __init__.py
+│   ├── ...
+├── optim_scheduler # Implementation of optimizers and lr_schedulerss
+│   ├── basic_optimizer.py
+│   └── ...
+├── process # The process of loading checkpoints, training/validating/testing/models
+│   ├── init_process.py
+│   ├── test_process.py
+│   └── train_process.py
+├── sentence_transformers # sentence_transformers package
+├── start.sh
+├── test.py
+├── train.py
+└── utils
+    ├── converts.py
+    ├── ...
+```
 
 ## Configuration
 
