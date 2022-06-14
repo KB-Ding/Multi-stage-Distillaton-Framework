@@ -128,7 +128,7 @@ You can get well-trained models from [here](https://www.sbert.net/) or write you
 
 We provide the model configuration list in: /init/init_model.py:
 
-```python
+```shell
 # stage 1
 "mul_mse": mse, # Multilingual KD.
 # stage 2
