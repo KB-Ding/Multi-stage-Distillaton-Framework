@@ -64,7 +64,7 @@ python test.py --config [config] -checkpoint [checkpoint] --gpu [gpu] --logdir [
 
 ## Directory structure
 
-```python
+```latex
 ├── config # Configuration: Set hyperparameters.
 │   ├── default.config
 │   ├── ...
