@@ -64,7 +64,7 @@ python test.py --config [config] -checkpoint [checkpoint] --gpu [gpu] --logdir [
 
 ## Directory structure
 
-```latex
+```shell
 ├── config # Configuration: Set hyperparameters.
 │   ├── default.config
 │   ├── ...
@@ -93,7 +93,6 @@ python test.py --config [config] -checkpoint [checkpoint] --gpu [gpu] --logdir [
 │   ├── test_process.py
 │   └── train_process.py
 ├── sentence_transformers # sentence_transformers package
-├── start.sh
 ├── test.py
 ├── train.py
 └── utils
