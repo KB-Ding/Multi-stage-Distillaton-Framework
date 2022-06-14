@@ -6,13 +6,13 @@ The PyTorch implementation for our paper:
 
 ## Usage
 
-#### Dataset
+### Dataset
 
 Parallel sentences corpus: you can get *TED2020* from [here](https://public.ukp.informatik.tu-darmstadt.de/reimers/sentence-transformers/datasets/ted2020.tsv.gz) and other datasets from [OPUS](https://opus.nlpl.eu/) .
 
 Test datasets: *STS2017* and *STS2017-extend* can be obtained from [here](https://public.ukp.informatik.tu-darmstadt.de/reimers/sentence-transformers/datasets/STS2017-extended.zip).
 
-#### Train
+### Train
 
 - ***Single-GPU***
 
