@@ -61,7 +61,6 @@ class parallel_all_distill_dataset(Dataset):
             for target_lang in target_languages:
                 wikifile = os.path.join(parallel_sentences_folder, "WikiMatrix-{}-{}-train.tsv.gz".format(source_lang, target_lang))
                 train_files.append(wikifile)
-
         # add News-Commentary
         for source_lang in source_languages:
             for target_lang in target_languages:
