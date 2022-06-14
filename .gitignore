@@ -13,3 +13,4 @@ utils/.DS_Store
 .DS_Store
 *.iml
 start.sh
+.idea/
