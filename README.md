@@ -22,7 +22,7 @@ python train.py --config [config] -checkpoint [checkpoint] --gpu [gpu number] --
 
 ``[config]`` : Directory for the configuration file.
 
-``[checkpoint]``: Resume training from the [checkpoint] file.
+``[checkpoint]``: Training from the [checkpoint] file.
 
  ``[gpu]``: The GPU index.											      
 
@@ -36,13 +36,13 @@ python train.py --config [config] -checkpoint [checkpoint] --gpu [gpu number] --
 CUDA_VISIBLE_DEVICES = [gpu list] python -m torch.distributed.launch --nproc_per_node = [number] --master_port [port] train.py --config [config] --checkpoint [checkpoint] --distributed --do_test --logdir [log folder]
 ```
 
-``[gpu list]``：list of GPUs used
+``[gpu list]``：list of GPUs.
 
-``[number]``：The number of processes started on each node, usually equal to the number of GPUs used.
+``[number]``：The number of GPUs.
 
-``[port]``：The port number of the master node
+``[port]``：The port number of the master node.
 
-``--distributed``：Specify to use torch.distributed for initialization
+``--distributed``：Specify to use torch.distributed for initialization.
 
 * *An example*：
 
