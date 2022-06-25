@@ -2,7 +2,7 @@
 
 The PyTorch implementation for our paper:
 
- [Multi-stage Distillation Framework for Cross-Lingual Semantic Similarity Matching](https://arxiv.org/)
+ [Multi-stage Distillation Framework for Cross-Lingual Semantic Similarity Matching](https://openreview.net/pdf?id=HCxleQ7GBWq)
 
 ## Usage
 
@@ -68,27 +68,27 @@ python test.py --config [config] -checkpoint [checkpoint] --gpu [gpu] --logdir [
 ├── config # Configuration: Set hyperparameters.
 │   ├── default.config
 │   ├── ...
-├── dataset # Dataset preprocessing: Read data and build the dataset
+├── dataset # Preprocessing: Read data and build the dataset
 │   ├── parallel_all_distill_dataset.py
 │   ├── ...
 ├── evaluator # Evaluator for test/validation sets
 │   ├── STS_evaluator.py
 │   ├── ...
-├── formatter # Format the dataloader: Build each training batch
+├── formatter # Format the dataloader: Build each batch
 │   ├── __init__.py
 │   ├── basic_formatter.py
 │   ├── ...
-├── init # Initialize according to the config file
+├── init # Initialize according to the configuration
 │   ├── __init__.py
 │   ├── init_dataset.py
 │   ├── ...
-├── model # Implementation of the models
+├── model # Implementation of models
 │   ├── __init__.py
 │   ├── ...
-├── optim_scheduler # Implementation of optimizers and lr_schedulerss
+├── optim_scheduler # Implementation of optimizers and lr_schedulers
 │   ├── basic_optimizer.py
 │   └── ...
-├── process # The process of loading checkpoints, training/validating/testing/models
+├── process # Loading checkpoints and models
 │   ├── init_process.py
 │   ├── test_process.py
 │   └── train_process.py
@@ -169,3 +169,4 @@ This work is supported by Peking University and Tencent Inc. If you use the code
   year={2022}
 }
 ```
+
