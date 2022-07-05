@@ -165,7 +165,7 @@ This work is supported by Peking University and Tencent Inc. If you use the code
 @inproceedings{kunbo2022multistage,
   title={Multi-stage Distillation Framework for Cross-Lingual Semantic Similarity Matching},
   author={Kunbo Ding and Weijie Liu and Yuejian Fang and Zhe Zhao and Qi Ju and Xuefeng Yang and Rong Tian and Tao Zhu and Haoyan Liu and Han Guo and Xingyu Bai and Weiquan Mao and Yudong Li and Weigang Guo and Taiqiang Wu and Ningyuan Sun},
-  booktitle={Proceedings of NAACL 2022},
+  booktitle={Findings of NAACL 2022},
   year={2022}
 }
 ```
