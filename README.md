@@ -2,7 +2,7 @@
 
 The PyTorch implementation for our paper:
 
- [Multi-stage Distillation Framework for Cross-Lingual Semantic Similarity Matching](https://openreview.net/pdf?id=HCxleQ7GBWq)
+ [Multi-stage Distillation Framework for Cross-Lingual Semantic Similarity Matching](https://aclanthology.org/2022.findings-naacl.167.pdf)
 
 ## Usage
 
