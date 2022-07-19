@@ -161,7 +161,7 @@ Thanks to [sentence-transformers](https://github.com/UKPLab/sentence-transformer
 
 This work is supported by Peking University and Tencent Inc. If you use the code, please cite this paper:
 
-```bash
+<pre>
 @inproceedings{ding-etal-2022-multi,
     title = "Multi-stage Distillation Framework for Cross-Lingual Semantic Similarity Matching",
     author = "Ding, Kunbo  and
@@ -188,5 +188,5 @@ This work is supported by Peking University and Tencent Inc. If you use the code
     url = "https://aclanthology.org/2022.findings-naacl.167",
     pages = "2171--2181",
 }
-```
+<pre>
 
