@@ -187,5 +187,4 @@ This work is supported by Peking University and Tencent Inc. If you use the code
     publisher = "Association for Computational Linguistics",
     url = "https://aclanthology.org/2022.findings-naacl.167",
     pages = "2171--2181",
-}
-<pre>
+}<pre>
