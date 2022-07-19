@@ -162,11 +162,31 @@ Thanks to [sentence-transformers](https://github.com/UKPLab/sentence-transformer
 This work is supported by Peking University and Tencent Inc. If you use the code, please cite this paper:
 
 ```latex
-@inproceedings{kunbo2022multistage,
-  title={Multi-stage Distillation Framework for Cross-Lingual Semantic Similarity Matching},
-  author={Kunbo Ding and Weijie Liu and Yuejian Fang and Zhe Zhao and Qi Ju and Xuefeng Yang and Rong Tian and Tao Zhu and Haoyan Liu and Han Guo and Xingyu Bai and Weiquan Mao and Yudong Li and Weigang Guo and Taiqiang Wu and Ningyuan Sun},
-  booktitle={Findings of NAACL 2022},
-  year={2022}
+@inproceedings{ding-etal-2022-multi,
+    title = "Multi-stage Distillation Framework for Cross-Lingual Semantic Similarity Matching",
+    author = "Ding, Kunbo  and
+      Liu, Weijie  and
+      Fang, Yuejian  and
+      Zhao, Zhe  and
+      Ju, Qi  and
+      Yang, Xuefeng  and
+      Tian, Rong  and
+      Tao, Zhu  and
+      Liu, Haoyan  and
+      Guo, Han  and
+      Bai, Xingyu  and
+      Mao, Weiquan  and
+      Li, Yudong  and
+      Guo, Weigang  and
+      Wu, Taiqiang  and
+      Sun, Ningyuan",
+    booktitle = "Findings of the Association for Computational Linguistics: NAACL 2022",
+    month = jul,
+    year = "2022",
+    address = "Seattle, United States",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2022.findings-naacl.167",
+    pages = "2171--2181",
 }
 ```
 
